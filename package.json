@@ -1,0 +1,40 @@
+{
+  "name": "uabpress",
+  "version": "0.0.1",
+  "description": "基于 Vue3.0 SSR 的一个快速高效的 Markdown 网站制作工具",
+  "main": "index.js",
+  "bin": {
+    "uabpress": "./bin/index.js"
+  },
+  "scripts": {
+    "start": "node bin/index.js dev docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uabjs/uabpress.git"
+  },
+  "keywords": [
+    "docs",
+    "vueperss",
+    "markdown"
+  ],
+  "author": "shunyue1320",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uabjs/uabpress/issues"
+  },
+  "homepage": "https://github.com/uabjs/uabpress#readme",
+  "dependencies": {
+    "@vue/compiler-dom": "^3.0.2",
+    "@vue/server-renderer": "^3.0.2",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "glob": "^7.1.6",
+    "koa": "^2.13.0",
+    "marked": "^1.2.5",
+    "ora": "^5.1.0",
+    "socket.io": "^3.0.3",
+    "vue": "^3.0.3",
+    "watch": "^1.0.2"
+  }
+}
