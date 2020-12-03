@@ -2,10 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const { createServer } = require('./devserver')
 const { createMiddleware } = require('./menu')
-// const provider = require('./markdown')
+const provider = require('./markdown')
 
 module.exports.wrapCommand = options => {
-  // provider.resolvePath = filePath => path.resolve(options.root, './' + filePath)
+  provider.resolvePath = filePath => path.resolve(options.root, './' + filePath)
 
   const app = createServer({ sourceDir: options.sourceDir })
   app.use(createMiddleware(options))
@@ -23,6 +23,18 @@ module.exports.wrapCommand = options => {
     } else {
       await next()
     }
+  })
+
+  app.use(async (ctx, next) => {
+    if (ctx.url === '/favicon.ico') {
+      ctx.body = ''
+      return
+    }
+    await next()
+  })
+
+  app.use(async (ctx, next) => {
+    await provider.path(ctx.menu)
   })
 
   app.start(options.port, () => {
