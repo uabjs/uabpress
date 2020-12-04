@@ -8,7 +8,7 @@ module.exports.wrapCommand = options => {
   provider.resolvePath = filePath => path.resolve(options.root, './' + filePath)
 
   const app = createServer({ sourceDir: options.sourceDir })
-  app.use(createMiddleware(options))
+  app.use(createMiddleware(options)) // 往 ctx 注入 menu
 
   //处理静态资源
   app.use(async (ctx, next) => {

@@ -10,7 +10,7 @@ class TreeNode {
   addChild(child) {
     child.parent = this
     this.children.push(child)
-    this.sortChild()
+    this.sortChildren()
     return child
   }
 
@@ -22,7 +22,7 @@ class TreeNode {
   }
 
   //排序
-  sortChild() {
+  sortChildren() {
     this.children.sort((aNode, bNode) => {
       const aFileName = this.getFileName(aNode)
       const bFileName = this.getFileName(bNode)

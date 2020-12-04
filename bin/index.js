@@ -7,7 +7,7 @@ const chalk = require('chalk')
 const figlet = require('figlet')
 const program = require('commander')
 const chalkAnimation = require('chalk-animation')
-const { wrapCommand } = require('../src/index')
+const { wrapCommand } = require('../packages/index')
 
 const figletAsync = promisify(figlet)
 program.version(require('../package.json').version)
