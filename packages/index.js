@@ -5,10 +5,10 @@ const { createMiddleware } = require('./menu')
 const provider = require('./markdown')
 
 module.exports.wrapCommand = options => {
-  provider.resolvePath = filePath => path.resolve(options.root, './' + filePath)
+  provider.resolvePath = filePath => path.resolve(options.sourceDir, './' + filePath)
 
-  const app = createServer({ sourceDir: options.sourceDir })
-  app.use(createMiddleware(options)) // 往 ctx 注入 menu
+  const app = createServer({ sourceDir: options.sourceDir }) //监听文件修改
+  app.use(createMiddleware(options)) // 往 ctx 注入 menu 文件列表
 
   //处理静态资源
   app.use(async (ctx, next) => {
@@ -35,6 +35,9 @@ module.exports.wrapCommand = options => {
 
   app.use(async (ctx, next) => {
     await provider.path(ctx.menu)
+    const { request: { url, query } } = ctx
+    const reqPath = url.split('?')[0]
+    const reqFile = path.extname(reqPath) === '' ? reqPath + '/README.md' : reqPath
   })
 
   app.start(options.port, () => {

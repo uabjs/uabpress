@@ -4,7 +4,7 @@ module.exports = function () {
   const provider = new Provider()
   [
     require('./middleware/title'),       // 解析标题
-    require('./middleware/prefix'),      // 标题缩进
+    require('./middleware/prefix'),      // 标题层级
     require('./middleware/breadcrumb'),  // 计算面包屑
     require('./middleware/autoNumber'),  // 自动生成序号
     require('./middleware/marked'),      // markdown转html
