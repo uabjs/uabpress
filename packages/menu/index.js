@@ -9,8 +9,7 @@ function getFolder(sourceDir) {
 
 function createMiddleware (options) {
   return async (ctx, next) => {
-    ctx.menu = getFolder(options.sourceDir)
-    console.log("菜单是：", ctx.menu);
+    ctx.menu = getFolder(options.sourceDir) //获取文件名菜单
     await next()
   }
 }
