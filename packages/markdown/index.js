@@ -2,14 +2,14 @@ const Provider = require('./Provider')
 
 module.exports = function () {
   const provider = new Provider()
-  [
+  Array.from([
     require('./middleware/title'),       // 解析标题
     require('./middleware/prefix'),      // 标题层级
     require('./middleware/breadcrumb'),  // 计算面包屑
     require('./middleware/autoNumber'),  // 自动生成序号
     require('./middleware/marked'),      // markdown转html
     require('./middleware/themes')       // 添加样式
-  ].forEach(middleware => {
+  ]).forEach(middleware => {
     provider.useMiddleware(middleware)
   })
   return provider

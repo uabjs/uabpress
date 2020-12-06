@@ -10,7 +10,7 @@ class Provider {
     this.resolvePath = (filePath) => path.join(__dirname, filePath)
   }
 
-  // 区别md文件 不影响排序
+  // 区别 文件夹 与 md 文件
   treekey(path) {
     return `${path ? path : ''}/?`
   }
@@ -47,6 +47,14 @@ class Provider {
     })
   }
 
+  async removeFile(filePath) {
+    if (filePath in this.nodes) {
+      const fileNode = this.nodes[filePath]
+      fileNode.parent.removeFile(fileNode)
+      delete this.nodes[filePath]
+    }
+  }
+
   async updateFile(filePath) {
     const fileNode = this.nodes[filePath]
     if (fileNode.hasChanged) {
@@ -54,7 +62,7 @@ class Provider {
     }
   }
 
-  //添加文件节点 没有父级先添加父级
+  // 添加文件节点 没有父级先添加父级
   async addFile(_filePath) {
     const filePath = this.formatFilePath(_filePath)
     if (!(filePath in this.nodes)) {
@@ -66,7 +74,7 @@ class Provider {
 
   getParent(filePath) {
     const filePaths = this.formatFilePath(filePath).split(/\//)
-    filePath.pop()                        // 去文件名
+    filePaths.pop()                        // 去文件名
     const parentPath = filePaths.join('/')
     const parentPathKey = this.treekey(parentPath)
     if (!(parentPathKey in this.nodes)) { // 没有父级 递归创建
@@ -88,6 +96,26 @@ class Provider {
 
   useMiddleware(middleware) {
     this.middlewares.push(middleware)
+  }
+
+  // 解析菜单 menu
+  toArray(formatNodeCb, parentNode) {
+    const result = []
+    const _nodes = parentNode || this.root
+    _nodes.children.forEach(childNode => {
+      if (childNode.isFileNode) {
+        result.push(formatNodeCb(childNode))
+      } else if (childNode.children && childNode.children.length > 0) {
+        this.toArray(formatNodeCb, childNode).forEach(item => result.push(item))
+      }
+    })
+    return result
+  }
+
+  // 提取该路径树
+  getItem(reqFile, formatNode) {
+    const filePath = this.formatFilePath(reqFile)
+    return formatNode(filePath in this.nodes ? this.nodes[filePath] : null)
   }
 }
 
