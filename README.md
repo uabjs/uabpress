@@ -1,16 +1,18 @@
 <p align="center">
   <a href="https://github.com/uabjs/uabpress" target="_blank">
-    <img width="180" src="https://avatars1.githubusercontent.com/u/73016681?s=200&v=4" alt="logo">
+    <img width="150" src="https://avatars1.githubusercontent.com/u/73016681?s=200&v=4" alt="logo">
   </a>
 </p>
 
-<div align="center">UabPress</div>
+<div align="center">
+<h1>UabPress</h1>
+</div>
 
 简体中文| [English](https://github.com/uabjs/uabpress/blob/main/README_en-US.md)
 
 ## uabpress
 基于 Vue3.0 SSR 的一个快速高效的 Markdown 网站制作工具
-[uabpress使用动态效果图](https://img-blog.csdnimg.cn/20201206225626894.gif)
+![uabpress 动态效果图展示](https://img-blog.csdnimg.cn/20201206225626894.gif)
 运行后默认热更新自动编译打开运行在浏览器3000端口
 
 ### 全局安装 uabpress 包
@@ -35,3 +37,6 @@ uabpress dev  //or   "uabpress dev  ./docs"
 // 也可指定文件夹制作 Markdown 网页
 uabpress bulid ./docs
 ```
+
+### 效果图如下：
+![UabPress基于 vue3 ssr 运行](https://img-blog.csdnimg.cn/20201206234140347.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNjE0OTI4,size_16,color_FFFFFF,t_70)
