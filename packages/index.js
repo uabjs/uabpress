@@ -2,7 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const { createServer } = require('./devserver')
 const { createMiddleware } = require('./menu')
-const provider = require('./markdown')
+const provider = require('./markdown')()
+const ssr = require('./ssr')
 
 module.exports.wrapCommand = options => {
   provider.resolvePath = filePath => path.resolve(options.sourceDir, './' + filePath)
@@ -12,7 +13,7 @@ module.exports.wrapCommand = options => {
 
   //处理静态资源
   app.use(async (ctx, next) => {
-    if (ctx.url.startsWith('./assets')) {
+    if (ctx.url.startsWith('/assets')) {
       try {
         const buffer = fs.readFileSync(path.resolve(__dirname, './' + ctx.url))
         ctx.type = path.extname(ctx.url).slice(1)
@@ -26,18 +27,19 @@ module.exports.wrapCommand = options => {
   })
 
   app.use(async (ctx, next) => {
-    if (ctx.url === '/favicon.ico') {
-      ctx.body = ''
-      return
-    }
-    await next()
-  })
-
-  app.use(async (ctx, next) => {
-    await provider.path(ctx.menu)
+    await provider.patch(ctx.menu)
     const { request: { url, query } } = ctx
     const reqPath = url.split('?')[0]
     const reqFile = path.extname(reqPath) === '' ? reqPath + '/README.md' : reqPath
+    const template = path.resolve(__dirname, './template/App.vue')
+
+    ctx.body = await ssr.renderMarkdown({
+      reqFile,
+      provider,
+      template,
+      options
+    })
+    await next()
   })
 
   app.start(options.port, () => {
