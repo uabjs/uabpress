@@ -12,7 +12,7 @@
 
 ## uabpress
 A fast and efficient Markdown website authoring tool based on Vue3.0 SSR
-[uabpress Dynamic renderings](https://img-blog.csdnimg.cn/20201206225626894.gif)
+![uabpress dynamic effect](https://img-blog.csdnimg.cn/20201206225626894.gif)
 
 ## Global install Package
 ```

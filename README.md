@@ -12,7 +12,7 @@
 
 ## uabpress
 基于 Vue3.0 SSR 的一个快速高效的 Markdown 网站制作工具
-[uabpress使用动态效果图](https://img-blog.csdnimg.cn/20201206225626894.gif)
+![uabpress 动态效果图展示]((https://img-blog.csdnimg.cn/20201206225626894.gif)
 运行后默认热更新自动编译打开运行在浏览器3000端口
 
 ### 全局安装 uabpress 包
