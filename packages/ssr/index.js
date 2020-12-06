@@ -4,6 +4,21 @@ const Vue = require('vue')
 const compilerSsr = require('@vue/compiler-ssr')
 const compilerSfc = require('@vue/compiler-sfc')
 const serverRenderer = require('@vue/server-renderer')
+
+
+const createRender = sfcPath => {
+  sfcPath = sfcPath ? sfcPath : path.resolve(__dirname, '../template/App.vue')
+  const { descriptor } = compilerSfc.parse(fs.readFileSync(sfcPath, 'utf-8'))
+  const render = compilerSsr.compile(descriptor.template.content).code
+  return async (data) => {
+    const app = Vue.createApp({
+      ssrRender: new Function('require', render)(require),
+      data: () => data
+    })
+    return serverRenderer.renderToString(app)
+  }
+}
+
 const renderMarkdown = async ({ reqFile, template, provider, options }) => {
   const skin = options.theme || '默认皮肤'
   // 获取 menu 菜单数据及其页面数据
