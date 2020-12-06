@@ -7,8 +7,8 @@
     "uabpress": "./bin/index.js"
   },
   "scripts": {
-    "dev": "node bin/index.js dev docs",
-    "build": "node bin/index.js build docs"
+    "dev": "node bin/index.js dev entry",
+    "build": "node bin/index.js build entry"
   },
   "repository": {
     "type": "git",
